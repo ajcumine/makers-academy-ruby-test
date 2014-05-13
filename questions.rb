@@ -29,16 +29,7 @@ end
 # [['Bob', 'Clive'], ['Bob', 'Dave'], ['Clive', 'Dave']]
 # make sure you don't have the same pairing twice, 
 def every_possible_pairing_of_students(array)
-  n = array.length - 1
-  a = array.permutation(n).to_a.sort
-  b = a.map {|e| e.sort }
-  c = b.sort
-  i = c.length - 1
-  while i > 0 do
-    c.delete_at(i)
-    i = i - n
-  end
-  c
+  array.combination(2)
 end
 
 # discard the first 3 elements of an array, 
@@ -257,7 +248,7 @@ end
 # called call_method_from_string('foobar')
 # the method foobar should be invoked
 def call_method_from_string(str_method)
-  str_method(arg)
+  self.str_method
 end
 
 # return true if the date is a uk bank holiday for 2014
@@ -284,8 +275,8 @@ end
 # and 1 that is 4 letters long. Return it as a hash in the format
 # word_length => count, e.g. {2 => 1, 3 => 5, 4 => 1}
 def count_words_of_each_length_in_a_file(file_path)
-  file = File.open(file_path, 'r')
-  file.read.split(" ")
+  words, count = IO.read(file_path).scan(/\w+/), Hash.new(0)
+  words.each { |w| count[w.size] += 1} and return count
 end
 
 # implement fizzbuzz without modulo, i.e. the % method
